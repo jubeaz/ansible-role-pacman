@@ -8,7 +8,7 @@ readonly reboot_file="/var/run/reboot-required"
 
 check_libs() {
     local libs=$(lsof -n +c 0 2> /dev/null | grep 'DEL.*lib' | awk '1 { print $1 ": " $NF }' | sort -u)
-    [[ -n $libs ]] &&  echo "$libs" >> ${reboot_file}
+    [[ -n "${libs}" ]] &&  echo "${libs}" >> ${reboot_file} || true
 }
 
 check_kernel() {
@@ -19,7 +19,7 @@ check_kernel() {
 #    echo "-${installed_kernel}-"
 #    echo "-${active_kernel_version}-"
 
-    [[ $active_kernel_version != $installed_kernel ]] &&  echo "KERNEL: reboot required" >> ${reboot_file}
+    [[ $active_kernel_version != $installed_kernel ]] &&  echo "KERNEL: reboot required" >> ${reboot_file} || true
 }
 
 main() {
