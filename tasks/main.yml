@@ -6,6 +6,8 @@
     name: "{{ item }}"
     state: present
     update_cache: true
+  register: __pacman
+  changed_when: __pacman.packages is defined
   loop: "{{ _pacman_packages }}"
 
 - name: Create hooks directory
